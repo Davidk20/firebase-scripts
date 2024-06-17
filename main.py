@@ -1,7 +1,7 @@
 import argparse
 import json
 import sys
-import firebase_scripts
+import utils.firebase as firebase_utils
 from utils.json import validate
 
 
@@ -72,7 +72,7 @@ def main():
             case "validate":
                 validate(docs, args.duplicate)
             case "upload":
-                firebase = firebase_scripts.FirebaseService(args.emulator, args.key)
+                firebase = firebase_utils.FirebaseService(args.emulator, args.key)
                 firebase.upload(docs, args.collection)
 
 
