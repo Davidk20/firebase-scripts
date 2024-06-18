@@ -37,6 +37,7 @@ jobs:
         run: |
           black --check --line-length 88 .
 
-      - name: Test with PyTest
-        run: |
-          pytest .
+      # Testing stage disabled until tests are included.
+      #- name: Test with PyTest
+      #  run: |
+      #    pytest .
