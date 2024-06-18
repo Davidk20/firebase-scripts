@@ -1,8 +1,8 @@
 import argparse
 import json
 import sys
-import firebase_scripts
-from utils.json import validate
+import utils.firebase as firebase_utils
+from utils.json import validate, csv_to_json
 
 
 class ArgParser(argparse.ArgumentParser):
@@ -65,15 +65,22 @@ def main():
 
     args = parser.parse_args()
 
-    with open(args.file) as json_data:
-        docs = json.load(json_data)
+    path: str = args.file
+    docs = []
 
-        match args.run_config:
-            case "validate":
-                validate(docs, args.duplicate)
-            case "upload":
-                firebase = firebase_scripts.FirebaseService(args.emulator, args.key)
-                firebase.upload(docs, args.collection)
+    if path.endswith(".csv"):
+        docs = csv_to_json(path)
+
+    else:
+        with open(args.file) as json_data:
+            docs = json.load(json_data)
+
+    match args.run_config:
+        case "validate":
+            validate(docs, args.duplicate)
+        case "upload":
+            firebase = firebase_utils.FirebaseService(args.emulator, args.key)
+            firebase.upload(docs, args.collection)
 
 
 if __name__ == "__main__":

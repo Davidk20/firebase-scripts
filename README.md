@@ -10,6 +10,7 @@ A set of utility scripts to quickly interact with Firebase Firestore databases.
 ## Key Features
 
 - Validate JSON files
+- Convert CSV files to JSON objects
 - Upload JSON files as docs to Firebase
 
 ## Setup
